@@ -1,0 +1,34 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "Introduction to JSON Server",
+      "content": "JSON Server is a tool to create mock REST APIs quickly.",
+      "posting": 0
+    },
+    {
+      "id": "2",
+      "title": "Getting Started with React",
+      "content": "React is a JavaScript library for building user interfaces.",
+      "posting": 1
+    },
+    {
+      "id": "3",
+      "title": "Understanding JavaScript Promises",
+      "content": "Promises simplify handling asynchronous operations in JavaScript.",
+      "posting": 0
+    },
+    {
+      "id": "4",
+      "title": "CSS Flexbox Guide",
+      "content": "Flexbox makes it easier to design flexible and responsive layout structures.",
+      "posting": 1
+    },
+    {
+      "id": "5",
+      "title": "Node.js Basics",
+      "content": "Node.js allows you to run JavaScript on the server side.",
+      "posting": 0
+    }
+  ]
+}
