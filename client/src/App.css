@@ -1,0 +1,3 @@
+.backgroundImage {
+    @apply bg-cover bg-center bg-no-repeat bg-backgroundImg
+}
