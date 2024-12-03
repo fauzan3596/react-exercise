@@ -1,14 +1,27 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/Auth";
+import { updatePost } from "../services";
 
-function Card({ post, postingChangeHandler }) {
-  const { id, title, content, posting } = post;
+function Card({ post }) {
+  const { title, content, posting } = post;
   const [isChecked, setIsChecked] = useState(posting === 1);
 
   const checkboxHandler = (e) => {
-      const postingValue = e.target.checked ? 1 : 0;
-    setIsChecked(e.target.checked);
-    postingChangeHandler(id, postingValue);
+    const postingValue = e.target.checked ? 1 : 0;
+    setIsChecked(postingValue);
+    postingChangeHandler(postingValue);
+  };
+
+  const postingChangeHandler = (newValue) => {
+    try {
+      const temp = {
+        ...post,
+        posting: newValue,
+      };
+      updatePost(temp);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -16,6 +16,12 @@ function useGetPosts() {
 
   useEffect(() => {
     getAllPosts();
+
+    const interval = setInterval(() => {
+        getAllPosts();
+      }, 100);
+  
+      return () => clearInterval(interval);
   }, []);
 
   return;

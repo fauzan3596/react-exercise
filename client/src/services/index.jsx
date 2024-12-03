@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const URL = "http://localhost:3000";
 
@@ -14,12 +15,13 @@ const fetchPosts = async () => {
   }
 };
 
-const updatePost = async (id, newPosting) => {
+const updatePost = async (temp) => {
+  const { id, posting, title, content } = temp;
   try {
     const posts = await axios({
       method: "PUT",
       url: `${URL}/posts/${id}`,
-      data: newPosting,
+      data: { title, content, posting },
     });
     return posts.data;
   } catch (error) {
@@ -27,4 +29,40 @@ const updatePost = async (id, newPosting) => {
   }
 };
 
-export { fetchPosts, updatePost };
+const addPost = async (temp) => {
+  const { title, content, posting } = temp;
+  try {
+    const response = await axios({
+      method: "GET",
+      url: `${URL}/posts`,
+    });
+    const posts = response.data;
+
+    await axios({
+      method: "POST",
+      url: `${URL}/posts`,
+      data: {
+        id:
+          posts.length > 0
+            ? (Math.max(...posts.map((post) => post.id)) + 1).toString()
+            : "1",
+        title,
+        content,
+        posting,
+      },
+    });
+    Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: "A new post has been created",
+    });
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error!",
+      text: error.message,
+    });
+  }
+};
+
+export { fetchPosts, updatePost, addPost };

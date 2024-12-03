@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/Auth";
 import useGetPosts from "../hooks/useGetPosts";
 import Card from "../components/Card";
-import { updatePost } from "../services";
+import { addPost } from "../services";
 
 function PostingsPage() {
   const navigate = useNavigate();
-  const { user, loading, posts, setPosts } = useContext(AuthContext);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const { user, loading, posts } = useContext(AuthContext);
   useGetPosts();
 
   useEffect(() => {
@@ -18,42 +20,59 @@ function PostingsPage() {
     }
   }, [navigate, loading]);
 
-  const postingChangeHandler  = async (id, newValue) => {
-    try {
-      const postToUpdate = posts.find((post) => post.id === id);
-      if (postToUpdate) {
-        const updatedPost = { ...postToUpdate, posting: newValue };
-        await updatePost(id, updatedPost); 
-        const updatedPosts = posts.map((post) =>
-          post.id === id ? updatedPost : post
-        );
-        setPosts(updatedPosts); 
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const temp = {
+      title,
+      content,
+      posting: 0,
+    };
+    addPost(temp);
   };
 
   if (loading) {
     return <h1>Loading.........</h1>;
   }
 
-  if (user) {
-    return (
-      <main className="min-h-screen w-3/4 mx-auto bg-gray-100">
-          <div className="bg-cyan-700 p-5 text-center">
-            <h1 className="text-2xl text-white font-medium">Posting Page</h1>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 mt-3 p-5">
-            {
-              posts.map((post) => {
-                return <Card key={post.id} post={post} postingChangeHandler={postingChangeHandler} />
-              })
-            }
-          </div>
-      </main>
-    );
-  }
+  return (
+    <main className="min-h-screen w-3/4 mx-auto bg-gray-100">
+      <div className="bg-cyan-700 p-5 text-center">
+        <h1 className="text-2xl text-white font-medium">Posting Page</h1>
+      </div>
+      <form
+        className="form-control w-1/2 mx-auto mt-4"
+        onSubmit={submitHandler}
+      >
+        <div className="label">
+          <span className="label-text font-medium">Title</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Title"
+          className="input input-bordered"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <div className="label mt-4">
+          <span className="label-text font-medium">Content</span>
+        </div>
+        <textarea
+          className="textarea textarea-bordered"
+          placeholder="Content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        ></textarea>
+        <button className="btn mt-8 bg-[#003465] text-white font-semibold border-0 text-lg hover:bg-blue-800">
+          Submit
+        </button>
+      </form>
+      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 mt-3 p-5">
+        {posts.map((post) => {
+          return <Card key={post.id} post={post} />;
+        })}
+      </div>
+    </main>
+  );
 }
 
 export default PostingsPage;
