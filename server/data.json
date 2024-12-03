@@ -10,7 +10,7 @@
       "id": "2",
       "title": "Getting Started with React",
       "content": "React is a JavaScript library for building user interfaces.",
-      "posting": 1
+      "posting": 0
     },
     {
       "id": "3",
@@ -22,7 +22,7 @@
       "id": "4",
       "title": "CSS Flexbox Guide",
       "content": "Flexbox makes it easier to design flexible and responsive layout structures.",
-      "posting": 1
+      "posting": 0
     },
     {
       "id": "5",
