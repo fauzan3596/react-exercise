@@ -3,13 +3,13 @@
     {
       "title": "Introduction to JSON Server",
       "content": "JSON Server is a tool to create mock REST APIs quickly.",
-      "posting": 0,
+      "posting": 1,
       "id": "1"
     },
     {
       "title": "Getting Started with React",
       "content": "React is a JavaScript library for building user interfaces.",
-      "posting": 0,
+      "posting": 1,
       "id": "2"
     },
     {
