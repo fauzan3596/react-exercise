@@ -20,7 +20,7 @@ function useGetPosts() {
     const interval = setInterval(() => {
         getAllPosts();
       }, 100);
-  
+
       return () => clearInterval(interval);
   }, []);
 

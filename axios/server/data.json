@@ -1,5 +1,5 @@
-{
-  "posts": [
+
+[
     {
       "title": "Introduction to JSON Server",
       "content": "JSON Server is a tool to create mock REST APIs quickly.",
@@ -31,4 +31,3 @@
       "id": "5"
     }
   ]
-}

@@ -28,11 +28,16 @@ function PostingsPage() {
       posting: 0,
     };
     addPost(temp);
+    setTitle("");
+    setContent("");
   };
 
   if (loading) {
     return <h1>Loading.........</h1>;
   }
+
+  const postingPosts = posts.filter((post) => post.posting === 1);
+  const draftPosts = posts.filter((post) => post.posting === 0);
 
   return (
     <main className="min-h-screen w-3/4 mx-auto bg-gray-100">
@@ -52,6 +57,7 @@ function PostingsPage() {
           className="input input-bordered"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
         <div className="label mt-4">
           <span className="label-text font-medium">Content</span>
@@ -61,13 +67,21 @@ function PostingsPage() {
           placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          required
         ></textarea>
         <button className="btn mt-8 bg-[#003465] text-white font-semibold border-0 text-lg hover:bg-blue-800">
           Submit
         </button>
       </form>
-      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 mt-3 p-5">
-        {posts.map((post) => {
+      <h2 className="text-2xl font-medium mx-5 mt-4">Posting</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 p-5">
+        {postingPosts.map((post) => {
+          return <Card key={post.id} post={post} />;
+        })}
+      </div>
+      <h2 className="text-2xl font-medium mx-5 mt-4">Draft</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 p-5">
+        {draftPosts.map((post) => {
           return <Card key={post.id} post={post} />;
         })}
       </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const URL = "http://localhost:3000";
+const URL = "https://marred-lily-wound.glitch.me";
 
 const fetchPosts = async () => {
   try {
